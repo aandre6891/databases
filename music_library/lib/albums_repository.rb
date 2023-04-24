@@ -2,8 +2,8 @@ require_relative 'albums'
 
 class AlbumsRepository
   def all
-    repo = 'SELECT id, title, release_year, artist_id FROM albums;'
-    result_set = DatabaseConnection.exec_params(repo, [])
+    sql = 'SELECT id, title, release_year, artist_id FROM albums;'
+    result_set = DatabaseConnection.exec_params(sql, [])
 
     albums = []
 
