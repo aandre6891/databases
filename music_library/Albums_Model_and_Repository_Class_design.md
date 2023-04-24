@@ -1,4 +1,4 @@
-# Artists model and repository class design
+# Albums model and repository class design
 
 _Copy this recipe template to design and implement Model and Repository classes for a database table._
 
@@ -60,12 +60,12 @@ Usually, the Model class name will be the capitalised table name (single instead
 
 # Model class
 # (in lib/artists.rb)
-class Artists
+class Albums
 end
 
 # Repository class
 # (in lib/artists_repository.rb)
-class ArtistsRepository
+class AlbumsRrepository
 end
 ```
 
@@ -80,10 +80,10 @@ Define the attributes of your Model class. You can usually map the table columns
 # Model class
 # (in lib/student.rb)
 
-class Artists
+class Albums
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :genre
+  attr_accessor :id, :title, :release_year, :artist_id
 end
 
 # The keyword attr_accessor is a special Ruby feature
@@ -110,7 +110,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 # Repository class
 # (in lib/artists_repository.rb)
 
-class ArtistsRepository
+class AlbumRepository
 
   # Selecting all records
   # No arguments
@@ -135,15 +135,17 @@ These examples will later be encoded as RSpec tests.
 # 1
 # Get all artists
 
-repo = ArtistsRepository.new
+repo = AlbumsRepository.new
 
-artists = repo.all
+albums = repo.all
 
-artists.length # =>  2
+albums.length # =>  2
 
-artists[0].id # =>  1
-artists.first.name # =>  'Pixies'
-artists[0].genre # =>  'Rock'
+albums[0].id # =>  1
+albums.first.title # =>  'Doolittle'
+albums[1].release_year # =>  '1974'
+albums[1].artist_id # =>  '2'
+
 
 ```
 
@@ -158,17 +160,17 @@ This is so you get a fresh table contents every time you run the test suite.
 ```ruby
 # EXAMPLE
 
-# file: spec/artists_repository_spec.rb
+# file: spec/albums_repository_spec.rb
 
 def reset_artists_table
-  seed_sql = File.read('spec/seeds_artists.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'artists' })
+  seed_sql = File.read('spec/seeds_albums.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'musicl_library_test' })
   connection.exec(seed_sql)
 end
 
-describe ArtistsRepository do
+describe AlbumsRepository do
   before(:each) do 
-    reset_artists_table
+    reset_albums_table
   end
 
   # (your tests will go here).
