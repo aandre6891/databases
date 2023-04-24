@@ -18,9 +18,9 @@ RSpec.describe ArtistsRepository do
       artists = repo.all
 
       expect(artists.length).to eq 2 # =>  2
-      expect(artists[0].id).to eq 1 # =>  1
+      expect(artists[0].id).to eq "1" # =>  1
       expect(artists.first.name).to eq "Pixies" # =>  'Pixies'
-      expect(artists[0].genre).to eq "Rock" # =>  'Rock'
+      expect(artists.first.genre).to eq "Rock" # =>  'Rock'
     end
   end
 end

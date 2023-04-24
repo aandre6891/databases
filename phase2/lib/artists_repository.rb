@@ -1,11 +1,21 @@
+require "artists"
+
 class ArtistsRepository
-
-  # Selecting all records
-  # No arguments
   def all
-    # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students;
+    sql = 'SELECT id, name, genre FROM artists;'
+    result_set = DatabaseConnection.exec_params(sql, [])
 
-    # Returns an array of Student objects.
+    artists = []
+
+    result_set.each do |record|
+      artist = Artists.new
+      artist.id = record['id']
+      artist.name = record['name']
+      artist.genre = record['genre']
+
+      artists << artist
+    end
+    
+    return artists
   end
 end
