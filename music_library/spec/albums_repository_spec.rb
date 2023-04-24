@@ -1,6 +1,6 @@
-require_relative 'albums_repository'
+require_relative '../lib/albums_repository'
 
-RSpect.describe AlbumsRepository do
+RSpec.describe AlbumsRepository do
   it "" do
     def reset_artists_table
       seed_sql = File.read('spec/seeds_albums.sql')

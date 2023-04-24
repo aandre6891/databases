@@ -116,9 +116,9 @@ class AlbumRepository
   # No arguments
   def all
     # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students;
+    # SELECT id, title, release_year, artist_id FROM albums;
 
-    # Returns an array of Student objects.
+    # Returns an array of Albums objects.
   end
 end
 ```
