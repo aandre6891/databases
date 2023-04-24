@@ -1,25 +1,28 @@
 require_relative '../lib/albums_repository'
 
+
 RSpec.describe AlbumsRepository do
-  it "" do
-    def reset_artists_table
+  describe AlbumsRepository do
+    def reset_albums_table
       seed_sql = File.read('spec/seeds_albums.sql')
-      connection = PG.connect({ host: '127.0.0.1', dbname: 'musicl_library_test' })
+      connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
       connection.exec(seed_sql)
     end
-
-      before(:each) do 
-        reset_albums_table
-      end
-
+  
+    before(:each) do 
+      reset_albums_table
+    end
+    
+    it "" do
       repo = AlbumsRepository.new
 
       albums = repo.all
       
-      albums.length # =>  2
-      albums[0].id # =>  1
-      albums.first.title # =>  'Doolittle'
-      albums[1].release_year # =>  '1974'
-      albums[1].artist_id # =>  '2'
+      expect(albums.length).to eq 2
+      expect(albums.first.id).to eq '1'
+      expect(albums.first.title).to eq 'Doolittle'
+      expect(albums[1].release_year).to eq '1974'
+      expect(albums[1].artist_id).to eq '2'
+    end
   end
 end
