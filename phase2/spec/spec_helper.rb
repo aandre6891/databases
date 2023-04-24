@@ -95,4 +95,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+# connect to database
+
+DatabaseConnection.connect('music_library_test')
 end
