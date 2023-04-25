@@ -28,3 +28,17 @@ VALUES (list of values, ...);
 INSERT INTO artists
 ( name, genre )
 VALUES ( 'Bon Jovi', 'Rock' );
+
+--to create new tables in the database
+
+CREATE TABLE table_name (
+  id SERIAL PRIMARY KEY,
+  title text,
+  release_year int
+);
+
+CREATE TABLE students (
+	id SERIAL PRIMARY KEY,
+	name text,
+	cohort text -- no comma for the last one
+);
