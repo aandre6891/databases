@@ -146,7 +146,7 @@ books[0].title # =>  'Pride & Prejudice'
 books[0].author_name # =>  'Jane Austin'
 
 books[1].id # =>  2
-books[1].title # =>  'Anna'
+books[1].title # =>  'The count of Montecristo'
 books[1].author_name # =>  'Alexandre Dumas'
 
 ```
