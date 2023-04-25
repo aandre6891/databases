@@ -26,15 +26,13 @@ RSpec.describe AlbumsRepository do
     end
 
     it "returns the first album 'Doolittle' details" do
-          # 2
-      # Get the first album 'Doolittle'
 
       repo = AlbumsRepository.new
       albums = repo.find(1)
 
-      albums.title # => 'Doolittle'
-      albums.release_year # => '1989'
-      albums.artist_id # => '1'
+      expect(albums.title).to eq ("Doolittle")
+      expect(albums.release_year).to eq ('1989')
+      expect(albums.artist_id).to eq ('1')
     end
     
     # xit "returns the second album 'Baltimore' details"
