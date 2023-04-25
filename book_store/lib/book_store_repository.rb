@@ -1,11 +1,21 @@
+require_relative "book_store"
+
 class BookStoreRepository
-
-  # Selecting all records
-  # No arguments
   def all
-    # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students;
+    sql = "SELECT id, title, author_name FROM books ORDER BY id ASC;"
+    selection = DatabaseConnection.exec_params(sql, [])
 
-    # Returns an array of Student objects.
+    books = []
+
+    selection.each do |element|
+      book = BookStore.new
+      book.id = element["id"]
+      book.title = element["title"]
+      book.author_name = element["author_name"]
+      
+      books << book
+    end
+
+    return books
   end
 end

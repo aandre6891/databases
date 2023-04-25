@@ -80,7 +80,7 @@ Define the attributes of your Model class. You can usually map the table columns
 # Model class
 # (in lib/book.rb)
 
-class Book
+class BookStore
 
   # Replace the attributes by your own columns.
   attr_accessor :id, :title, :author_name
