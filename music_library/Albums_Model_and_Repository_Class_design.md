@@ -35,13 +35,13 @@ If seed data is provided (or you already created it), you can skip this step.
 -- so we can start with a fresh state.
 -- (RESTART IDENTITY resets the primary key)
 
-TRUNCATE TABLE artists RESTART IDENTITY; -- replace with your own table name.
+TRUNCATE TABLE albums RESTART IDENTITY; -- replace with your own table name.
 
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
 
-INSERT INTO artists (name, genre) VALUES ('Pixies', 'Rock');
-INSERT INTO artists (name, genre) VALUES ('ABBA', 'Pop');
+INSERT INTO albums (title, release_year, artist_id) VALUES ( 'Doolittle', '1989', '1' );
+INSERT INTO albums (title, release_year, artist_id) VALUES ( 'Waterloo', '1974', '2' );
 ```
 
 Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
@@ -56,15 +56,15 @@ Usually, the Model class name will be the capitalised table name (single instead
 
 ```ruby
 # EXAMPLE
-# Table name: artists
+# Table name: albums
 
 # Model class
-# (in lib/artists.rb)
+# (in lib/albums.rb)
 class Albums
 end
 
 # Repository class
-# (in lib/artists_repository.rb)
+# (in lib/albums_repository.rb)
 class AlbumsRrepository
 end
 ```
@@ -105,10 +105,10 @@ Using comments, define the method signatures (arguments and return value) and wh
 
 ```ruby
 # EXAMPLE
-# Table name: artists
+# Table name: albums
 
 # Repository class
-# (in lib/artists_repository.rb)
+# (in lib/albums_repository.rb)
 
 class AlbumRepository
 
@@ -120,6 +120,13 @@ class AlbumRepository
 
     # Returns an array of Albums objects.
   end
+
+  def find
+    # Executes the SQL query:
+
+    # SELECT id, title, release_year, artist_id FROM albums WHERE id = $1;
+  end
+
 end
 ```
 
@@ -133,7 +140,7 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all artists
+# Get all albums
 
 repo = AlbumsRepository.new
 
@@ -162,7 +169,7 @@ This is so you get a fresh table contents every time you run the test suite.
 
 # file: spec/albums_repository_spec.rb
 
-def reset_artists_table
+def reset_albums_table
   seed_sql = File.read('spec/seeds_albums.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'musicl_library_test' })
   connection.exec(seed_sql)
