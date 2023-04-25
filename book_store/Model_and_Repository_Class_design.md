@@ -110,7 +110,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 # Repository class
 # (in lib/book_store_repository.rb)
 
-class BookStore_repository
+class BookStoreRepository
 
   # Selecting all records
   # No arguments

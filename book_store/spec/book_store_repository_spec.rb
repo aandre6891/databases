@@ -1,4 +1,4 @@
-require "book_store_repositor"
+require_relative "../lib/book_store_repository"
 
 RSpec.describe BookStoreRepository do
   describe BookStoreRepository do
