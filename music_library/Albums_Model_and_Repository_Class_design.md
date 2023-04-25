@@ -167,11 +167,11 @@ albums.artist_id # => '1'
 # get the album Baltimore
 
 repo = AlbumsRepository.new
-albums = repo.find(9)
+albums = repo.find(2)
 
-albums.title # => 'Baltimore'
-albums.release_year # => '1978'
-albums.artist_id # => '4'
+albums.title # => 'Waterloo'
+albums.release_year # => '1974'
+albums.artist_id # => '2'
 
 
 ```

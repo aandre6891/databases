@@ -35,16 +35,14 @@ RSpec.describe AlbumsRepository do
       expect(albums.artist_id).to eq ('1')
     end
     
-    # xit "returns the second album 'Baltimore' details"
-    #   # 3
-    #   # get the album Baltimore
+    it "returns the second album 'Baltimore' details" do
     
-    #   repo = AlbumsRepository.new
-    #   albums = repo.find(9)
-    
-    #   albums.title # => 'Baltimore'
-    #   albums.release_year # => '1978'
-    #   albums.artist_id # => '4'
-    # end
+      repo = AlbumsRepository.new
+      albums = repo.find(2)
+
+      expect(albums.title).to eq ("Waterloo")
+      expect(albums.release_year).to eq ('1974')
+      expect(albums.artist_id).to eq ('2')
+    end
   end
 end
