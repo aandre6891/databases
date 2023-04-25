@@ -153,6 +153,26 @@ albums.first.title # =>  'Doolittle'
 albums[1].release_year # =>  '1974'
 albums[1].artist_id # =>  '2'
 
+# 2
+# Get the first album 'Doolittle'
+
+repo = AlbumsRepository.new
+albums = repo.find(1)
+
+albums.title # => 'Doolittle'
+albums.release_year # => '1989'
+albums.artist_id # => '1'
+
+# 3
+# get the album Baltimore
+
+repo = AlbumsRepository.new
+albums = repo.find(9)
+
+albums.title # => 'Baltimore'
+albums.release_year # => '1978'
+albums.artist_id # => '4'
+
 
 ```
 
