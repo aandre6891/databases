@@ -19,10 +19,10 @@ RSpec.describe AlbumsRepository do
       albums = repo.all
       
       expect(albums.length).to eq 2
-      expect(albums.first.id).to eq '1'
-      expect(albums.first.title).to eq 'Doolittle'
-      expect(albums[1].release_year).to eq '1974'
-      expect(albums[1].artist_id).to eq '2'
+      expect(albums.first.id).to eq "1"
+      expect(albums.first.title).to eq "Doolittle"
+      expect(albums[1].release_year).to eq "1974"
+      expect(albums[1].artist_id).to eq "2"
     end
   end
 end

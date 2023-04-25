@@ -9,11 +9,11 @@ class AlbumsRepository
 
     result_set.each do |record|
       album = Albums.new
-      album.id = record['id']
+      album.id = record["id"]
       album.title = record['title']
       album.release_year = record['release_year']
       album.artist_id = record['artist_id']
-      albums << record
+      albums << album
     end
 
     return albums
