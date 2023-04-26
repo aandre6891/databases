@@ -1,8 +1,8 @@
-# {Recipes} Model and Repository Classes Design Recipe
+# Artist Model and Repository Classes Design Recipe
 
 _Copy this recipe template to design and implement Model and Repository classes for a database table._
 
-## 1. Design and create the Table - Table already created
+## 1. Design and create the Table
 
 If the table is already created in the database, you can skip this step.
 
@@ -40,17 +40,17 @@ TRUNCATE TABLE recipes RESTART IDENTITY; -- replace with your own table name.
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
 
+INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Stir Fry Noodles', '30', '5');
+INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Baked Potato', '60', '4');
 INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Carbonara', '30', '4');
 INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Cacio e pepe', '45', '4');
 INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Tiramisù', '60', '5');
-INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Risotto ai funghi', '120', '3');
-INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Lasagne', '110', '3');
 ```
 
 Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
 
 ```bash
-psql -h 127.0.0.1 recipes_directory < seeds_recipes.sql
+psql -h 127.0.0.1 your_database_name < seeds_recipes.sql
 ```
 
 ## 3. Define the class names
@@ -89,7 +89,13 @@ class Recipe
   attr_accessor :id, :name, :average_cooking_time, :rating
 end
 
-
+# The keyword attr_accessor is a special Ruby feature
+# which allows us to set and get attributes on an object,
+# here's an example:
+#
+# recipe = Recipe.new
+# recipe.name = 'Baked Potato'
+# recipe.name
 ```
 
 *You may choose to test-drive this class, but unless it contains any more logic than the example above, it is probably not needed.*
@@ -102,7 +108,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 
 ```ruby
 # EXAMPLE
-# Table name: recipes
+# Table name: recipe
 
 # Repository class
 # (in lib/recipe_repository.rb)
@@ -113,19 +119,18 @@ class RecipeRepository
   # No arguments
   def all
     # Executes the SQL query:
-    # SELECT id, name, average_cooking_time, rating FROM recipes;
+    # SELECT id, name, genre FROM artists;
 
-    # Returns an array of Recipes objects.
+    # Returns an array of Artist objects.
   end
 
-  # Gets a single record by its ID
-  # One argument: the id (number)
   def find(id)
-    # Executes the SQL query:
-    # SELECT id, name, average_cooking_time, rating FROM recipes WHERE id = $1;
+    # exectures the SQL query:
+    # SELECT id, name, genre FROM artists WHERE id = $1
 
-    # Returns a single Recipe object.
+    # returns a single Artist object
   end
+
 end
 ```
 
@@ -144,35 +149,39 @@ These examples will later be encoded as RSpec tests.
 repo = RecipeRepository.new
 
 recipes = repo.all
+recipes.length # => 5
+recipes.first.id # => '1'
+recipes.first.name # => 'Stir Fry Noodles'
+recipes.first.average_cooking_time # => '30'
+recipes.first.rating # => '5'
 
-recipes.length # =>  5
-
-recipes[0].id # =>  1
-recipes[0].name # =>  'Carbonara'
-recipes[0].average_cooking_time # =>  '30'
-recipes[0].rating # => '4'
-
-recipes[3].id # =>  4
-recipes[3].name # =>  'Risotto ai funghi'
-recipes[3].average_cooking_time # =>  '120'
-recipes[3].rating # => '3'
-
+recipes.[1].id # => '2'
+recipes.[1].name # => 'Baked Potato'
+recipes.[1].average_cooking_time # => '60'
+recipes.[1].rating # => '4'
 
 
 # 2
 # Get a single recipe
-
 repo = RecipeRepository.new
 
-recipes = repo.find(5)
+recipes = repo.find(1)
+recipes.id # => 1
+recipes.name # => 'Stir Fry Noodles'
+recipes.average_cooking_time # => '30'
+recipes.rating # => '5'
 
-recipes.id # =>  5
-recipes.name # =>  'Lasagne'
-recipes.average_cooking_time # =>  '110'
-recipes[3].rating # => '3'
+# 3
+# Get another single recipe
+repo = RecipeRepository.new
 
-# Add more examples for each method
-```
+recipes = repo.find(3)
+recipes.id # => 3
+recipes.name # => 'Carbonara'
+recipes.average_cooking_time # => '30'
+recipes.rating # => '4'
+
+
 
 Encode this example as a test.
 
@@ -189,7 +198,7 @@ This is so you get a fresh table contents every time you run the test suite.
 
 def reset_recipes_table
   seed_sql = File.read('spec/seeds_recipes.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'recipes' })
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'recipes_directory_test' })
   connection.exec(seed_sql)
 end
 
