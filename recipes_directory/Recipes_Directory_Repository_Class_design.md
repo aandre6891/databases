@@ -1,8 +1,8 @@
-# {{TABLE NAME}} Model and Repository Classes Design Recipe
+# {Recipes} Model and Repository Classes Design Recipe
 
 _Copy this recipe template to design and implement Model and Repository classes for a database table._
 
-## 1. Design and create the Table
+## 1. Design and create the Table - Table already created
 
 If the table is already created in the database, you can skip this step.
 
@@ -35,13 +35,16 @@ If seed data is provided (or you already created it), you can skip this step.
 -- so we can start with a fresh state.
 -- (RESTART IDENTITY resets the primary key)
 
-TRUNCATE TABLE students RESTART IDENTITY; -- replace with your own table name.
+TRUNCATE TABLE recipes RESTART IDENTITY; -- replace with your own table name.
 
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
 
-INSERT INTO students (name, cohort_name) VALUES ('David', 'April 2022');
-INSERT INTO students (name, cohort_name) VALUES ('Anna', 'May 2022');
+INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Carbonara', '30', '4');
+INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Cacio e pepe', '45', '4');
+INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Tiramisù', '60', '5');
+INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Risotto ai funghi', '120', '3');
+INSERT INTO recipes (name, average_cooking_time, rating) VALUES ('Lasagne', '110', '3');
 ```
 
 Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
