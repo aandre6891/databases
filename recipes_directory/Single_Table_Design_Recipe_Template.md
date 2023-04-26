@@ -1,4 +1,4 @@
-# Single Table Design Recipe Template
+# Recipes Table Design Recipe Template
 
 _Copy this recipe template to design and create a database table from a specification._
 
@@ -72,7 +72,7 @@ CREATE TABLE recipes (
 ## 5. Create the table.
 
 ```bash
-psql -h 127.0.0.1 database_name < albums_table.sql
+psql -h 127.0.0.1 database_name < recipes_table.sql
 ```
 
 <!-- BEGIN GENERATED SECTION DO NOT EDIT -->
