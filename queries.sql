@@ -42,3 +42,13 @@ CREATE TABLE students (
 	name text,
 	cohort text -- no comma for the last one
 );
+
+-- to alter the type of the column
+ALTER TABLE recipes
+ALTER COLUMN rating TYPE numeric;
+
+-- to check the column type
+
+SELECT pg_typeof(rating)
+FROM recipes
+LIMIT 1;
