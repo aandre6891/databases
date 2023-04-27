@@ -228,14 +228,14 @@ all_albums.first.id # => '2'
 repo = AlbumsRepository.new
 
 album = repo.find(1)
-album.name = 'Trompe le Monde'
+album.title = 'Trompe le Monde'
 album.release_year = '1991'
 
 repo.update(album)
 
 updated_album = repo.find(1)
 
-update_album.name # => 'Trompe le Monde'
+update_album.title # => 'Trompe le Monde'
 updated_album.release_year # => '1991'
 updated_album.artist_id # => '1'
 

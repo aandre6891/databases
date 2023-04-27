@@ -73,7 +73,33 @@ RSpec.describe AlbumsRepository do
       expect(all_albums.length).to eq 1
       expect(all_albums.first.id).to eq '2'
       expect(all_albums.first.title).to eq 'Waterloo'
-      
+    end
+
+    it "deletes all the albums" do
+      repo = AlbumsRepository.new
+
+      repo.delete(1)
+      repo.delete(2)
+
+      all_albums = repo.all
+
+      expect(all_albums.length).to eq 0
+    end
+
+    it "updates the album name and release year" do
+      repo = AlbumsRepository.new
+
+      album = repo.find(1)
+      album.title = 'Trompe le Monde'
+      album.release_year = '1991'
+
+      repo.update(album)
+
+      updated_album = repo.find(1)
+
+      expect(updated_album.title).to eq 'Trompe le Monde'
+      expect(updated_album.release_year).to eq '1991'
+      expect(updated_album.artist_id).to eq '1'
     end
   end
 end
