@@ -133,7 +133,7 @@ class PostRepository
   def create(post)
     # Executes the SQL query:
 
-    # INSERT INTO users ( title, content, number_of_views, user_id) VALUES ( $1, $2, $3, $4);
+    # INSERT INTO posts ( title, content, number_of_views, user_id) VALUES ( $1, $2, $3, $4);
 
   end
  

@@ -36,16 +36,11 @@ class PostRepository
     return post
   end
 
-  
-
-  # # Add more methods below for each operation you'd like to implement.
-
-  # def create(post)
-  #   # Executes the SQL query:
-
-  #   # INSERT INTO users ( title, content, number_of_views, user_id) VALUES ( $1, $2, $3, $4);
-
-  # end
+  def create(post) # returns nothing
+    sql = "INSERT INTO posts ( title, content, number_of_views, user_id) VALUES ( $1, $2, $3, $4);"
+    params = [post.title, post.content, post.number_of_views, post.user_id]
+    DatabaseConnection.exec_params(sql, params)
+  end
  
   # def delete(id)
   #   # Executes the SQL query:

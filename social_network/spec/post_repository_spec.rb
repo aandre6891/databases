@@ -40,28 +40,27 @@ describe PostRepository do
     expect(post.user_id).to eq '2'
   end
 
+  it "creates a new post" do
+    repo = PostRepository.new
+    new_post = Post.new
+    new_post.title = 'Title 5'
+    new_post.content = 'content 5'
+    new_post.number_of_views = '55'
+    new_post.user_id = '3'
+
+    repo.create(new_post)
+
+    last_post = repo.all.last
+
+    expect(repo.all.length).to eq 5
+    expect(last_post.id).to eq '5'
+    expect(last_post.title).to eq 'Title 5'
+    expect(last_post.content).to eq 'content 5'
+    expect(last_post.number_of_views).to eq '55'
+    expect(last_post.user_id).to eq '3'
+  end
+
 end
-
-# # 3
-# # Create a new post
-
-# repo = PostRepository.new
-# new_post = Post.new
-# new_post.title = 'Title 5'
-# new_post.content = 'content 5'
-# new_post.number_of_views = '55'
-# new_post.user_id = '3'
-
-# repo.create(new_post)
-
-# last_post = repo.all.last
-
-# repo.all.length #=> 5
-# last_post.id # => '5'
-# last_post.title # => 'Title 5'
-# last_post.content # => 'content 5'
-# last_post.number_of_views # => '55'
-# last_post.user_id # => '3'
 
 # # 4
 # # Delete the first post
