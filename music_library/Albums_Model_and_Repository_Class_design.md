@@ -196,7 +196,7 @@ albums.artist_id # => '2'
 
 repo = AlbumsRepository.new
 
-album = Album.new
+album = Albums.new
 album.title = 'Trompe le Monde'
 album.release_year = 1991
 album.artist_id = 1
