@@ -114,7 +114,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 class PostRepository
   def all
     # Executes the SQL query:
-    # SELECT id, title, content, number_of_views, user_id FROM users;
+    # SELECT id, title, content, number_of_views, user_id FROM posts;
 
     # Returns an array of Post objects.
   end
@@ -256,15 +256,15 @@ This is so you get a fresh table contents every time you run the test suite.
 
 # file: spec/user_repository_spec.rb
 
-def reset_user_table
-  seed_sql = File.read('spec/seeds_users.sql')
+def reset_posts_table
+  seed_sql = File.read('spec/seeds_posts.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'social_network_test' })
   connection.exec(seed_sql)
 end
 
-describe UserRepository do
+describe PostRepository do
   before(:each) do 
-    reset_user_table
+    reset_posts_table
   end
 
   # (your tests will go here).
