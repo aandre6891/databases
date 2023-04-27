@@ -194,7 +194,7 @@ albums.artist_id # => '2'
 # 4
 # inserts the new album Cross Road
 
-repo = AlbumRepository.new
+repo = AlbumsRepository.new
 
 album = Album.new
 album.title = 'Trompe le Monde'
@@ -213,7 +213,7 @@ last_album.artist_id # => '1'
 # 5
 # it deletes 'Doolittle' from the albums
 
-repo = AlbumRepository.new
+repo = AlbumsRepository.new
 
 repo.delete(1)
 
@@ -225,7 +225,7 @@ all_albums.first.id # => '2'
 # 6
 # it updates 'Doolittle' into 'Trompe le Monde' and release year into 1991
 
-repo = AlbumRepository.new
+repo = AlbumsRepository.new
 
 album = repo.find(1)
 album.name = 'Trompe le Monde'
