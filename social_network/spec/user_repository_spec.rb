@@ -36,47 +36,44 @@ RSpec.describe UserRepository do
       expect(user.name).to eq 'john325'
       expect(user.email_address).to eq 'john325@hotmail.com'
     end
+
+    it "creates a new user" do
+
+      repo = UserRepository.new
+      new_user = User.new
+      new_user.name = 'luis990'
+      new_user.email_address = 'luis990@gmail.com'
+      repo.create(new_user)
+      
+      last_user = repo.all.last
+      expect(last_user.name).to eq 'luis990'
+      expect(last_user.email_address).to eq 'luis990@gmail.com'
+      expect(last_user.id).to eq '5'
+    end
+
+    it "deletes the first user" do
+
+      repo = UserRepository.new
+      repo.delete(1)
+
+      first_user = repo.all.first
+
+      expect(first_user.name).to eq 'john325'
+      expect(first_user.email_address).to eq 'john325@hotmail.com'
+      expect(first_user.id).to eq '2'
+    end
+
+    it "updates the first user" do
+      repo = UserRepository.new
+      user_to_update = repo.find(1)
+      user_to_update.name = 'Céline'
+      user_to_update.email_address = 'celine88@gmail.com'
+
+      repo.update(user_to_update)
+      updated_user = repo.find(1)
+
+      expect(updated_user.name).to eq 'Céline'
+      expect(updated_user.email_address).to eq 'celine88@gmail.com' 
+    end
   end
 end
-
-# # 3
-# # Create a new user
-
-# repo = UserRepository.new
-# new_user = User.new
-# new_user.name = 'luis990'
-# new_user.email_address = 'luis990@gmail.com'
-
-# repo.create(new_user)
-
-# last_user = repo.all.last
-
-# last_user.name # => 'luis990'
-# last_user.email_address # => 'luis990@gmail.com'
-# last_user.id # => '5'
-
-# # 4
-# # Delete the first user
-
-# repo = UserRepository.new
-# repo.delete(1)
-
-# first_user = repo.all.first
-
-# first_user.name # => 'john325'
-# first_user.email_address # => 'john325@hotmail.com'
-# first_user.id # => '2'
-
-# # 5
-# # update the first user
-
-# repo = UserRepository.new
-# user_to_update = repo.find(1)
-# user_to_update.name = 'Céline'
-# user_to_update.email_address = 'celine88@gmail.com'
-
-# repo.update(user_to_update)
-# updated_user = repo.find(1)
-
-# updated_user.name # => 'Céline'
-# updated_user.email_address # => 'celine88@gmail.com' 
