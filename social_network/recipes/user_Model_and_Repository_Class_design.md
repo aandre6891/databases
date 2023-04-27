@@ -27,7 +27,7 @@ If seed data is provided (or you already created it), you can skip this step.
 
 ```sql
 -- EXAMPLE
--- (file: spec/seeds_{table_name}.sql)
+-- (file: spec/seeds_posts.sql)
 
 -- Write your SQL seed here. 
 
@@ -35,19 +35,21 @@ If seed data is provided (or you already created it), you can skip this step.
 -- so we can start with a fresh state.
 -- (RESTART IDENTITY resets the primary key)
 
-TRUNCATE TABLE students RESTART IDENTITY; -- replace with your own table name.
+TRUNCATE TABLE users RESTART IDENTITY; -- replace with your own table name.
 
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
 
-INSERT INTO students (name, cohort_name) VALUES ('David', 'April 2022');
-INSERT INTO students (name, cohort_name) VALUES ('Anna', 'May 2022');
+INSERT INTO users (name, email_address) VALUES ('andy6891', 'andy6891@gmail.com');
+INSERT INTO users (name, email_address) VALUES ('john325', 'john325@hotmail.com');
+INSERT INTO users (name, email_address) VALUES ('lisa678', 'lisa@hotmail.com');
+INSERT INTO users (name, email_address) VALUES ('matt777', 'matt777@hotmail.com');
 ```
 
 Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
 
 ```bash
-psql -h 127.0.0.1 your_database_name < seeds_{table_name}.sql
+psql -h 127.0.0.1 your_database_name < seeds_users.sql
 ```
 
 ## 3. Define the class names
@@ -56,16 +58,16 @@ Usually, the Model class name will be the capitalised table name (single instead
 
 ```ruby
 # EXAMPLE
-# Table name: students
+# Table name: users
 
 # Model class
-# (in lib/student.rb)
-class Student
+# (in lib/user.rb)
+class User
 end
 
 # Repository class
-# (in lib/student_repository.rb)
-class StudentRepository
+# (in lib/user_repository.rb)
+class UserRepository
 end
 ```
 
@@ -75,24 +77,24 @@ Define the attributes of your Model class. You can usually map the table columns
 
 ```ruby
 # EXAMPLE
-# Table name: students
+# Table name: users
 
 # Model class
-# (in lib/student.rb)
+# (in lib/user.rb)
 
-class Student
+class User
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :cohort_name
+  attr_accessor :id, :name, :email_address
 end
 
 # The keyword attr_accessor is a special Ruby feature
 # which allows us to set and get attributes on an object,
 # here's an example:
 #
-# student = Student.new
-# student.name = 'Jo'
-# student.name
+# user = User.new
+# user.name = 'Jo'
+# user.email_address = 'xxx@gmail.com'
 ```
 
 *You may choose to test-drive this class, but unless it contains any more logic than the example above, it is probably not needed.*
@@ -105,15 +107,12 @@ Using comments, define the method signatures (arguments and return value) and wh
 
 ```ruby
 # EXAMPLE
-# Table name: students
+# Table name: users
 
 # Repository class
-# (in lib/student_repository.rb)
+# (in lib/user_repository.rb)
 
-class StudentRepository
-
-  # Selecting all records
-  # No arguments
+class UserRepository
   def all
     # Executes the SQL query:
     # SELECT id, name, cohort_name FROM students;
@@ -132,14 +131,25 @@ class StudentRepository
 
   # Add more methods below for each operation you'd like to implement.
 
-  # def create(student)
-  # end
+  def create(user)
+    # Executes the SQL query:
 
-  # def update(student)
-  # end
+    # INSERT INTO users ( name, email_address) VALUES ( $1, $2);
 
-  # def delete(student)
-  # end
+  end
+ 
+  def delete(id)
+    # Executes the SQL query:
+
+    # DELETE FROM users WHERE id = $1;
+  end
+
+  def update(user)
+    # Executes the SQL query:
+
+    # UPDATE users SET name = $1, email_address = $2 WHERE id = $3;
+  end
+
 end
 ```
 
@@ -153,34 +163,73 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all students
+# Get all users
 
-repo = StudentRepository.new
+repo = UserRepository.new
+users = repo.all
 
-students = repo.all
-
-students.length # =>  2
-
-students[0].id # =>  1
-students[0].name # =>  'David'
-students[0].cohort_name # =>  'April 2022'
-
-students[1].id # =>  2
-students[1].name # =>  'Anna'
-students[1].cohort_name # =>  'May 2022'
+users.length # =>  4
+users.first.id # =>  '1'
+users.first.name # =>  'andy6891'
+users.first.email_address # =>  'andy6891@gmail.com'
+users[3].id # =>  '4'
+users[3].name # =>  'matt777'
+users[3].email_address # =>  'matt777@hotmail.com'
 
 # 2
-# Get a single student
+# Get a single user
 
-repo = StudentRepository.new
+repo = UserRepository.new
 
-student = repo.find(1)
+user = repo.find(2)
 
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
+user.id # =>  2
+user.name # =>  'john325'
+user.email_address # =>  'john325@hotmail.com'
 
-# Add more examples for each method
+# 3
+# Create a new user
+
+repo = UserRepository.new
+new_user = User.new
+new_user.name = 'luis990'
+new_user.email_address = 'luis990@gmail.com'
+
+repo.create(new_user)
+
+last_user = repo.all.last
+
+last_user.name # => 'luis990'
+last_user.email_address # => 'luis990@gmail.com'
+last_user.id # => '5'
+
+# 3
+# Delete the first user
+
+repo = UserRepository.new
+repo.delete(1)
+
+first_user = repo.all.first
+
+first_user.name # => 'john325'
+first_user.email_address # => 'john325@hotmail.com'
+first_user.id # => '2'
+
+# 4
+# update the first user
+
+repo = UserRepository.new
+user_to_update = repo.find(1)
+user_to_update.name = 'Céline'
+user_to_update.email_address = 'celine88@gmail.com'
+
+repo.update(user_to_update)
+updated_user = repo.find(1)
+
+updated_user.name # => 'Céline'
+updated_user.email_address # => 'celine88@gmail.com' 
+
+
 ```
 
 Encode this example as a test.
@@ -194,17 +243,17 @@ This is so you get a fresh table contents every time you run the test suite.
 ```ruby
 # EXAMPLE
 
-# file: spec/student_repository_spec.rb
+# file: spec/user_repository_spec.rb
 
-def reset_students_table
-  seed_sql = File.read('spec/seeds_students.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'students' })
+def reset_user_table
+  seed_sql = File.read('spec/seeds_users.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'users' })
   connection.exec(seed_sql)
 end
 
-describe StudentRepository do
+describe UserRepository do
   before(:each) do 
-    reset_students_table
+    reset_user_table
   end
 
   # (your tests will go here).
