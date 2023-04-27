@@ -130,7 +130,7 @@ class AlbumRepository
   def create(album)
     # Executes the SQL query:
 
-    # INSERT INTO albums title, release_year, artist_id) VALUES ( 'Trompe le Monde', '1991', '1' );
+    # INSERT INTO albums (title, release_year, artist_id) VALUES ( 'Trompe le Monde', '1991', '1' );
   end
 
   def delete(id)
@@ -192,7 +192,7 @@ albums.release_year # => '1974'
 albums.artist_id # => '2'
 
 # 4
-# inserts the new album Cross Road
+# inserts the new album Trompe le Monde
 
 repo = AlbumsRepository.new
 

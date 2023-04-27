@@ -44,5 +44,23 @@ RSpec.describe AlbumsRepository do
       expect(albums.release_year).to eq ('1974')
       expect(albums.artist_id).to eq ('2')
     end
+
+    it "inserts the new album Trompe le Monde" do
+      
+      repo = AlbumsRepository.new
+      new_album = Albums.new
+      new_album.title = 'Trompe le Monde'
+      new_album.release_year = 1991
+      new_album.artist_id = 1
+
+      repo.create(new_album)
+
+      all_albums = repo.all
+      last_album = all_albums.last
+
+      expect(last_album.title).to eq 'Trompe le Monde'
+      expect(last_album.release_year).to eq '1991'
+      expect(last_album.artist_id).to eq '1'
+    end
   end
 end
