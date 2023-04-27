@@ -1,4 +1,5 @@
 require_relative '../lib/user_repository'
+require_relative '../lib/database_connection'
 
 RSpec.describe UserRepository do
   def reset_user_table
@@ -25,19 +26,18 @@ RSpec.describe UserRepository do
       expect(users[3].name).to eq 'matt777'
       expect(users[3].email_address).to eq 'matt777@hotmail.com'
     end
+
+    it "gets the second user only" do
+
+      repo = UserRepository.new
+      user = repo.find(2)
+
+      expect(user.id).to eq '2'
+      expect(user.name).to eq 'john325'
+      expect(user.email_address).to eq 'john325@hotmail.com'
+    end
   end
 end
-
-# # 2
-# # Get a single user
-
-# repo = UserRepository.new
-
-# user = repo.find(2)
-
-# user.id # =>  2
-# user.name # =>  'john325'
-# user.email_address # =>  'john325@hotmail.com'
 
 # # 3
 # # Create a new user
@@ -55,7 +55,7 @@ end
 # last_user.email_address # => 'luis990@gmail.com'
 # last_user.id # => '5'
 
-# # 3
+# # 4
 # # Delete the first user
 
 # repo = UserRepository.new
@@ -67,7 +67,7 @@ end
 # first_user.email_address # => 'john325@hotmail.com'
 # first_user.id # => '2'
 
-# # 4
+# # 5
 # # update the first user
 
 # repo = UserRepository.new

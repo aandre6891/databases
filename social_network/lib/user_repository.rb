@@ -1,4 +1,5 @@
 require 'user.rb'
+require 'database_connection'
 
 class UserRepository
   def all
@@ -19,14 +20,18 @@ class UserRepository
     return users
   end
 
-  # # Gets a single record by its ID
-  # # One argument: the id (number)
-  # def find(id)
-  #   # Executes the SQL query:
-  #   # SELECT id, name, cohort_name FROM students WHERE id = $1;
+  def find(id)
+    sql = "SELECT id, name, email_address FROM users WHERE id = $1;"
+    user_id = [id]
+    result_set = DatabaseConnection.exec_params(sql, user_id)
 
-  #   # Returns a single Student object.
-  # end
+    user_result = result_set[0]
+    user = User.new
+    user.id = user_result['id']
+    user.name = user_result['name']
+    user.email_address = user_result['email_address']
+    return user
+  end
 
   # # Add more methods below for each operation you'd like to implement.
 
