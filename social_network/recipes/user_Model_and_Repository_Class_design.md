@@ -115,18 +115,18 @@ Using comments, define the method signatures (arguments and return value) and wh
 class UserRepository
   def all
     # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students;
+    # SELECT id, name, email_address FROM users;
 
-    # Returns an array of Student objects.
+    # Returns an array of User objects.
   end
 
   # Gets a single record by its ID
   # One argument: the id (number)
   def find(id)
     # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students WHERE id = $1;
+    # SELECT id, name, email_address FROM users WHERE id = $1;
 
-    # Returns a single Student object.
+    # Returns a single User object.
   end
 
   # Add more methods below for each operation you'd like to implement.
@@ -247,7 +247,7 @@ This is so you get a fresh table contents every time you run the test suite.
 
 def reset_user_table
   seed_sql = File.read('spec/seeds_users.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'users' })
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'social_network_test' })
   connection.exec(seed_sql)
 end
 
