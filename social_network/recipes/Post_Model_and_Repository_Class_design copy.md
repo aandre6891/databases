@@ -146,7 +146,7 @@ class PostRepository
   def update(post)
     # Executes the SQL query:
 
-    # UPDATE users SET name = $1, content = $2, number_of_views = $3, user_id = $4 WHERE id = $5;
+    # UPDATE posts SET title = $1, content = $2, number_of_views = $3, user_id = $4 WHERE id = $5;
   end
 
 end

@@ -69,24 +69,20 @@ describe PostRepository do
     expect(posts.length).to eq 3
   end
 
+  it "updates the first post" do
+    repo = PostRepository.new
+    post_to_update = repo.find(1)
+    post_to_update.title = 'Title 4.2'
+    post_to_update.content = 'content 4.2'
+    post_to_update.number_of_views = '44'
+    post_to_update.user_id = '4'
+
+    repo.update(post_to_update)
+    updated_post = repo.find(1)
+
+    expect(updated_post.title).to eq 'Title 4.2'
+    expect(updated_post.content).to eq 'content 4.2'
+    expect(updated_post.number_of_views).to eq '44'
+    expect(updated_post.user_id).to eq '4'
+  end
 end
-
-
-
-# # 5
-# # update the first post
-
-# repo = UserRepository.new
-# post_to_update = repo.find(1)
-# post_to_update.title = 'Title 4.2'
-# post_to_update.content = 'content 4.2'
-# post_to_update.number_of_views = '44'
-# post_to_update.user_id = '4'
-
-# repo.update(user_to_update)
-# updated_user = repo.find(1)
-
-# updated_user.title # => 'Title 4.2'
-# updated_user.content # => 'content 4.2'
-# updated_user.number_of_views # => '44'
-# updated_user.user_id # => '4'
