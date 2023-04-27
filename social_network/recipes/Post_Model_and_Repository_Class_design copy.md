@@ -123,7 +123,7 @@ class PostRepository
   # One argument: the id (number)
   def find(id)
     # Executes the SQL query:
-    # SELECT id, title, content, number_of_views, user_id FROM users WHERE id = $1;
+    # SELECT id, title, content, number_of_views, user_id FROM posts WHERE id = $1;
 
     # Returns a single Post object.
   end

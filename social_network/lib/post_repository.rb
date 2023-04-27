@@ -21,14 +21,22 @@ class PostRepository
     return posts
   end
 
-  # # Gets a single record by its ID
-  # # One argument: the id (number)
-  # def find(id)
-  #   # Executes the SQL query:
-  #   # SELECT id, title, content, number_of_views, user_id FROM users WHERE id = $1;
+  def find(id)
+    sql = "SELECT id, title, content, number_of_views, user_id FROM posts WHERE id = $1;"
+    post_id = [id]
+    result_set = DatabaseConnection.exec_params(sql, post_id)
 
-  #   # Returns a single Post object.
-  # end
+    selected_post = result_set[0]
+    post = Post.new
+    post.id = selected_post['id']
+    post.title = selected_post['title']
+    post.content = selected_post['content']
+    post.number_of_views = selected_post['number_of_views']
+    post.user_id = selected_post['user_id']
+    return post
+  end
+
+  
 
   # # Add more methods below for each operation you'd like to implement.
 

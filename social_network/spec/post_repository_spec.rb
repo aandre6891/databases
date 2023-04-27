@@ -29,20 +29,18 @@ describe PostRepository do
     expect(posts[3].user_id).to eq '4'
   end
 
+  it "gets a single post" do
+    repo = PostRepository.new
+    post = repo.find(2)
+
+    expect(post.id).to eq "2"
+    expect(post.title).to eq 'Title 2'
+    expect(post.content).to eq 'content 2'
+    expect(post.number_of_views).to eq '54'
+    expect(post.user_id).to eq '2'
+  end
+
 end
-
-# # 2
-# # Get a single post
-
-# repo = PostRepository.new
-
-# post = repo.find(2)
-
-# post.id # =>  2
-# post.title # =>  'Title 2'
-# post.content # =>  'content 2'
-# post.number_of_views # =>  '54'
-# post.user_id # =>  '2'
 
 # # 3
 # # Create a new post
