@@ -4,14 +4,16 @@ require_relative "lib/database_connection"
 DatabaseConnection.connect('recipes_directory')
 
 recipe_repository = RecipeRepository.new
-recipe = Recipe.new
 
+puts "All the recipes:"
 recipe_repository.all.each do |record|
-    p "name: #{record.name}, rating: #{record.rating}"
+    p "#{record.id}. #{record.name} - Time: #{record.average_cooking_time} mins - Rating: #{record.rating}"
 end
 
+puts "-----------------------\nJust the first recipe:"
+
 record = recipe_repository.find(1)
-p record.name
+p "#{record.id}. #{record.name} - Time: #{record.average_cooking_time} mins - Rating: #{record.rating}"
 
 
 
