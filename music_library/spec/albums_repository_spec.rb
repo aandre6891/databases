@@ -62,5 +62,18 @@ RSpec.describe AlbumsRepository do
       expect(last_album.release_year).to eq '1991'
       expect(last_album.artist_id).to eq '1'
     end
+
+    it "deletes Doolittle from the albums" do
+      repo = AlbumsRepository.new
+
+      repo.delete(1)
+
+      all_albums = repo.all
+
+      expect(all_albums.length).to eq 1
+      expect(all_albums.first.id).to eq '2'
+      expect(all_albums.first.title).to eq 'Waterloo'
+      
+    end
   end
 end
