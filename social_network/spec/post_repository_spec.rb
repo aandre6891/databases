@@ -60,17 +60,18 @@ describe PostRepository do
     expect(last_post.user_id).to eq '3'
   end
 
+  it "deletes the first post" do
+    repo = PostRepository.new
+    repo.delete(1)
+
+    posts = repo.all
+
+    expect(posts.length).to eq 3
+  end
+
 end
 
-# # 4
-# # Delete the first post
 
-# repo = UserRepository.new
-# repo.delete(1)
-
-# posts = repo.all
-
-# posts.length # => 3
 
 # # 5
 # # update the first post

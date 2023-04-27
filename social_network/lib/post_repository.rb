@@ -42,11 +42,11 @@ class PostRepository
     DatabaseConnection.exec_params(sql, params)
   end
  
-  # def delete(id)
-  #   # Executes the SQL query:
-
-  #   # DELETE FROM posts WHERE id = $1;
-  # end
+  def delete(id)
+    sql = "DELETE FROM posts WHERE id = $1;"
+    post_id = [id]
+    DatabaseConnection.exec_params(sql, post_id)
+  end
 
   # def update(post)
   #   # Executes the SQL query:
