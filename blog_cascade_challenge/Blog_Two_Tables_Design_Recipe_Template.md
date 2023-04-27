@@ -113,7 +113,7 @@ Replace the relevant bits in this example with your own:
 -- Replace the table name, columm names and types.
 
 -- Create the table without the foreign key first.
-CREATE TABLE post (
+CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
   title text,
   content text
