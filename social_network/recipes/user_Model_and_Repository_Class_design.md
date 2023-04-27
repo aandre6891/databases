@@ -203,7 +203,7 @@ last_user.name # => 'luis990'
 last_user.email_address # => 'luis990@gmail.com'
 last_user.id # => '5'
 
-# 3
+# 4
 # Delete the first user
 
 repo = UserRepository.new
@@ -215,7 +215,7 @@ first_user.name # => 'john325'
 first_user.email_address # => 'john325@hotmail.com'
 first_user.id # => '2'
 
-# 4
+# 5
 # update the first user
 
 repo = UserRepository.new
