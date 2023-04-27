@@ -1,4 +1,4 @@
-# {{USERS}} Model and Repository Classes Design Recipe
+# {{POSTS}} Model and Repository Classes Design Recipe
 
 _Copy this recipe template to design and implement Model and Repository classes for a database table._
 
@@ -35,17 +35,16 @@ If seed data is provided (or you already created it), you can skip this step.
 -- so we can start with a fresh state.
 -- (RESTART IDENTITY resets the primary key)
 
-TRUNCATE TABLE users RESTART IDENTITY; -- replace with your own table name.
+TRUNCATE TABLE posts RESTART IDENTITY CASCADE; -- replace with your own table name.
 
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
 
-INSERT INTO users (name, email_address) VALUES ('andy6891', 'andy6891@gmail.com');
-INSERT INTO users (name, email_address) VALUES ('john325', 'john325@hotmail.com');
-INSERT INTO users (name, email_address) VALUES ('lisa678', 'lisa@hotmail.com');
-INSERT INTO users (name, email_address) VALUES ('matt777', 'matt777@hotmail.com');
-```
-
+INSERT INTO posts (title, content, number_of_views, user_id) VALUES ('Title 1', 'content 1', '45', '1');
+INSERT INTO posts (title, content, number_of_views, user_id) VALUES ('Title 2', 'content 2', '54', '2');
+INSERT INTO posts (title, content, number_of_views, user_id) VALUES ('Title 3', 'content 3', '81', '3');
+INSERT INTO posts (title, content, number_of_views, user_id) VALUES ('Title 4', 'content 4', '32', '4');
+`` 4
 Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
 
 ```bash
@@ -58,16 +57,16 @@ Usually, the Model class name will be the capitalised table name (single instead
 
 ```ruby
 # EXAMPLE
-# Table name: users
+# Table name: posts
 
 # Model class
-# (in lib/user.rb)
-class User
+# (in lib/post.rb)
+class Post
 end
 
 # Repository class
-# (in lib/user_repository.rb)
-class UserRepository
+# (in lib/post_repository.rb)
+class PostRepository
 end
 ```
 
@@ -77,15 +76,15 @@ Define the attributes of your Model class. You can usually map the table columns
 
 ```ruby
 # EXAMPLE
-# Table name: users
+# Table name: posts
 
 # Model class
-# (in lib/user.rb)
+# (in lib/post.rb)
 
-class User
+class Post
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :email_address
+  attr_accessor :id, :title, :content, :numner_of_views, :user_id
 end
 
 # The keyword attr_accessor is a special Ruby feature
@@ -110,44 +109,44 @@ Using comments, define the method signatures (arguments and return value) and wh
 # Table name: users
 
 # Repository class
-# (in lib/user_repository.rb)
+# (in lib/post_repository.rb)
 
-class UserRepository
+class PostRepository
   def all
     # Executes the SQL query:
-    # SELECT id, name, email_address FROM users;
+    # SELECT id, title, content, number_of_views, user_id FROM users;
 
-    # Returns an array of User objects.
+    # Returns an array of Post objects.
   end
 
   # Gets a single record by its ID
   # One argument: the id (number)
   def find(id)
     # Executes the SQL query:
-    # SELECT id, name, email_address FROM users WHERE id = $1;
+    # SELECT id, title, content, number_of_views, user_id FROM users WHERE id = $1;
 
-    # Returns a single User object.
+    # Returns a single Post object.
   end
 
   # Add more methods below for each operation you'd like to implement.
 
-  def create(user)
+  def create(post)
     # Executes the SQL query:
 
-    # INSERT INTO users ( name, email_address) VALUES ( $1, $2);
+    # INSERT INTO users ( title, content, number_of_views, user_id) VALUES ( $1, $2, $3, $4);
 
   end
  
   def delete(id)
     # Executes the SQL query:
 
-    # DELETE FROM users WHERE id = $1;
+    # DELETE FROM posts WHERE id = $1;
   end
 
-  def update(user)
+  def update(post)
     # Executes the SQL query:
 
-    # UPDATE users SET name = $1, email_address = $2 WHERE id = $3;
+    # UPDATE users SET name = $1, content = $2, number_of_views = $3, user_id = $4 WHERE id = $5;
   end
 
 end
@@ -163,71 +162,83 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all users
+# Get all posts
 
-repo = UserRepository.new
-users = repo.all
-
-users.length # =>  4
-users.first.id # =>  '1'
-users.first.name # =>  'andy6891'
-users.first.email_address # =>  'andy6891@gmail.com'
-users[3].id # =>  '4'
-users[3].name # =>  'matt777'
-users[3].email_address # =>  'matt777@hotmail.com'
+repo = PostRepository.new
+posts = repo.all
+posts.length # =>  4
+posts.first.id # =>  '1'
+posts.first.title # =>  'Title 1'
+posts.first.content # =>  'content 1'
+posts.first.number_of_views # =>  '45'
+posts.first.user_id # =>  '1'
+posts[3].id # =>  '4'
+posts[3].title # =>  'Title 4'
+posts[3].content # =>  'content 4'
+posts[3].number_of_views # =>  '32'
+posts[3].user_id # =>  '4'
 
 # 2
-# Get a single user
+# Get a single post
 
-repo = UserRepository.new
+repo = PostRepository.new
 
-user = repo.find(2)
+post = repo.find(2)
 
-user.id # =>  2
-user.name # =>  'john325'
-user.email_address # =>  'john325@hotmail.com'
+post.id # =>  2
+post.title # =>  'Title 2'
+post.content # =>  'content 2'
+post.number_of_views # =>  '54'
+post.user_id # =>  '2'
 
 # 3
-# Create a new user
+# Create a new post
 
-repo = UserRepository.new
-new_user = User.new
-new_user.name = 'luis990'
-new_user.email_address = 'luis990@gmail.com'
+repo = PostRepository.new
+new_post = Post.new
+new_post.title = 'Title 5'
+new_post.content = 'content 5'
+new_post.number_of_views = '55'
+new_post.user_id = '3'
 
-repo.create(new_user)
+repo.create(new_post)
 
-last_user = repo.all.last
+last_post = repo.all.last
 
-last_user.name # => 'luis990'
-last_user.email_address # => 'luis990@gmail.com'
-last_user.id # => '5'
+repo.all.length #=> 5
+last_post.id # => '5'
+last_post.title # => 'Title 5'
+last_post.content # => 'content 5'
+last_post.number_of_views # => '55'
+last_post.user_id # => '3'
 
 # 4
-# Delete the first user
+# Delete the first post
 
 repo = UserRepository.new
 repo.delete(1)
 
-first_user = repo.all.first
+posts = repo.all
 
-first_user.name # => 'john325'
-first_user.email_address # => 'john325@hotmail.com'
-first_user.id # => '2'
+posts.length # => 3
 
 # 5
-# update the first user
+# update the first post
 
 repo = UserRepository.new
-user_to_update = repo.find(1)
-user_to_update.name = 'Céline'
-user_to_update.email_address = 'celine88@gmail.com'
+post_to_update = repo.find(1)
+post_to_update.title = 'Title 4.2'
+post_to_update.content = 'content 4.2'
+post_to_update.number_of_views = '44'
+post_to_update.user_id = '4'
 
 repo.update(user_to_update)
 updated_user = repo.find(1)
 
-updated_user.name # => 'Céline'
-updated_user.email_address # => 'celine88@gmail.com' 
+updated_user.title # => 'Title 4.2'
+updated_user.content # => 'content 4.2'
+updated_user.number_of_views # => '44'
+updated_user.user_id # => '4'
 
 
 ```
