@@ -52,3 +52,12 @@ ALTER COLUMN rating TYPE numeric;
 SELECT pg_typeof(rating)
 FROM recipes
 LIMIT 1;
+
+-- to delete one artist
+--example
+DELETE FROM table_name WHERE id = 1;
+
+--to update on artist
+-- example
+
+UPDATE table_name SET name = "name", age = "35" WHERE id = 1;
