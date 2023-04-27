@@ -215,7 +215,7 @@ last_post.user_id # => '3'
 # 4
 # Delete the first post
 
-repo = UserRepository.new
+repo = PostRepository.new
 repo.delete(1)
 
 posts = repo.all
@@ -225,20 +225,19 @@ posts.length # => 3
 # 5
 # update the first post
 
-repo = UserRepository.new
+repo = PostRepository.new
 post_to_update = repo.find(1)
 post_to_update.title = 'Title 4.2'
 post_to_update.content = 'content 4.2'
 post_to_update.number_of_views = '44'
 post_to_update.user_id = '4'
 
-repo.update(user_to_update)
-updated_user = repo.find(1)
-
-updated_user.title # => 'Title 4.2'
-updated_user.content # => 'content 4.2'
-updated_user.number_of_views # => '44'
-updated_user.user_id # => '4'
+repo.update(post_to_update)
+updated_post = repo.find(1)
+updated_post.title # => 'Title 4.2'
+updated_post.content # => 'content 4.2'
+updated_post.number_of_views # => '44'
+updated_post.user_id # => '4'
 
 
 ```
