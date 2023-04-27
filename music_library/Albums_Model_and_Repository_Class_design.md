@@ -127,6 +127,24 @@ class AlbumRepository
     # SELECT id, title, release_year, artist_id FROM albums WHERE id = $1;
   end
 
+  def create(album)
+    # Executes the SQL query:
+
+    # INSERT INTO albums title, release_year, artist_id) VALUES ( 'Trompe le Monde', '1991', '1' );
+  end
+
+  def delete(id)
+    # Executes the SQL query:
+
+    # DELETE FROM albums WHERE id = $1;
+  end
+
+  def update(album)
+    # Executes the SQL query:
+
+    # UPDATE albums SET title = $1, release_year = $2, artist_id = $3 WHERE id = $4;
+  end
+
 end
 ```
 
@@ -173,6 +191,53 @@ albums.title # => 'Waterloo'
 albums.release_year # => '1974'
 albums.artist_id # => '2'
 
+# 4
+# inserts the new album Cross Road
+
+repo = AlbumRepository.new
+
+album = Album.new
+album.title = 'Trompe le Monde'
+album.release_year = 1991
+album.artist_id = 1
+
+repo.create(album)
+
+all_albums = repo.all
+last_album = all_albums.last
+
+last_album.title # => 'Trompe le Monde'
+last_album.release_year # => '1991'
+last_album.artist_id # => '1'
+
+# 5
+# it deletes 'Doolittle' from the albums
+
+repo = AlbumRepository.new
+
+repo.delete(1)
+
+all_albums = repo.all
+
+all_albums.length # => 1
+all_albums.first.id # => '2'
+
+# 6
+# it updates 'Doolittle' into 'Trompe le Monde' and release year into 1991
+
+repo = AlbumRepository.new
+
+album = repo.find(1)
+album.name = 'Trompe le Monde'
+album.release_year = '1991'
+
+repo.update(album)
+
+updated_album = repo.find(1)
+
+update_album.name # => 'Trompe le Monde'
+updated_album.release_year # => '1991'
+updated_album.artist_id # => '1'
 
 ```
 
