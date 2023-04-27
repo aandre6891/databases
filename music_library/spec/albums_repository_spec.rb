@@ -35,7 +35,7 @@ RSpec.describe AlbumsRepository do
       expect(albums.artist_id).to eq ('1')
     end
     
-    it "returns the second album 'Baltimore' details" do
+    it "returns the second album 'Waterloo' details" do
     
       repo = AlbumsRepository.new
       albums = repo.find(2)
