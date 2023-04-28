@@ -7,6 +7,9 @@ require_relative 'lib/albums_repository'
 DatabaseConnection.connect('music_library')
 
 class Application
+  # def initialize(terminal)
+  #   @terminal = terminal
+  # end
   def print_artists
     artists_repository = ArtistsRepository.new
     
@@ -38,9 +41,5 @@ class Application
   end
 end
 
-Application.new.run
-
-
-
-# puts "-" * 30
-
+application = Application.new
+application.run
