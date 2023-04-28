@@ -39,6 +39,7 @@ class Application
       p "#{album.id}. #{album.title} - #{album.release_year} - Artist n. #{album.artist_id}"
     end
   end
+end
 
 # Don't worry too much about this if statement. It is basically saying "only
 # run the following code if this is the main file being run, instead of having
@@ -53,4 +54,3 @@ class Application
     )
     app.run
   end
-end
