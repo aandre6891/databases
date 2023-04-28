@@ -61,3 +61,29 @@ DELETE FROM table_name WHERE id = 1;
 -- example
 
 UPDATE table_name SET name = "name", age = "35" WHERE id = 1;
+
+-- JOIN query
+
+SELECT [columns to select]
+  FROM [table name]
+  JOIN [other table name]
+  ON [join condition]
+
+-- example
+
+SELECT albums.id,
+      albums.title,
+      artists.id,
+      artists.name
+  FROM albums
+    JOIN artists
+    ON artists.id = albums.artist_id;
+
+-- we can add AS to rename the column in order to not have to id columns
+    SELECT albums.id,
+       albums.title,
+       artists.id AS artist_id,
+       artists.name
+  FROM albums
+    JOIN artists
+    ON artists.id = albums.artist_id;
