@@ -11,32 +11,34 @@ class Application
   end
 
   def run
-    @io.puts "Please, select:" 
-    @io.puts "1. Print the artists"
-    @io.puts "2. Print the albums."
-    selection = @io.gets.chomp
-    if selection == '1'
-      print_artists
-    elsif selection == '2'
+    @io.puts "Welcome to the music library manager!"
+    @io.puts ""
+    @io.puts "What would you like to do?" 
+    @io.puts "1 - List all albums"
+    @io.puts "2 - List all artists"
+    @io.puts ""
+    @io.print "Enter your choice: "
+    selection = @io.gets.to_i
+    @io.puts ""
+
+    if selection == 1
       print_albums
+    elsif selection == 2
+      print_artists
     end
   end
 
   def print_artists
-    artists_repository = ArtistsRepository.new
-    
-    puts "List of artists:"
-    list_of_artists = artists_repository.all.each do |artist|
-      puts "#{artist.id}. #{artist.name} (#{artist.genre})"
+    puts "Here is the list of artists:"
+    @artist_repository.all.each do |artist|
+      puts "* #{artist.id} - #{artist.name} (#{artist.genre})"
     end   
   end
 
-  def print_albums
-    albums_repository = AlbumsRepository.new
-    
-    puts "List of albums:"
-    albums_repository.all.each do |album|
-      p "#{album.id}. #{album.title} - #{album.release_year} - Artist n. #{album.artist_id}"
+  def print_albums    
+    puts "Here is the list of albums:"
+    @album_repository.all.each do |album|
+      p "* #{album.id} - #{album.title}"
     end
   end
 end
