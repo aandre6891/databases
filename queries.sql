@@ -87,3 +87,35 @@ SELECT albums.id,
   FROM albums
     JOIN artists
     ON artists.id = albums.artist_id;
+    ---------------------------------------
+
+    -- example of creating two tables with a many to many relationship (you need to create a third table)
+
+    -- EXAMPLE
+-- file: posts_tags.sql
+
+-- Replace the table name, columm names and types.
+
+-- Create the first table.
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  title text,
+  content text
+);
+
+-- Create the second table.
+CREATE TABLE tags (
+  id SERIAL PRIMARY KEY,
+  name text
+);
+
+-- Create the join table.
+CREATE TABLE posts_tags (
+  post_id int,
+  tag_id int,
+  constraint fk_post foreign key(post_id) references posts(id) on delete cascade,
+  constraint fk_tag foreign key(tag_id) references tags(id) on delete cascade,
+  PRIMARY KEY (post_id, tag_id)
+);
+
+---
